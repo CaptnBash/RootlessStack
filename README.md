@@ -51,6 +51,15 @@ The `gamez` user has rootless Docker access for running Minecraft servers. Sampl
 ### backupuser
 `backupuser` can be used to create backups to a USB drive. Can only be accessed with public key authentication. 
 
+## Managing Containers with dockie (or gamez)
+
+To manage containers, access the `dockie` user by:
+1. Connecting with SSH as `sshuser` 
+2. change to root with `su -`
+3. switching to the desired user with `machinectl shell dockie@`
+
+**Note:** Use `machinectl` instead of `su` to get a proper systemd session with dbus access, required for systemctl and service management.
+
 ## Network
 ### Ports
 The following ports will be used open on `0.0.0.0`:
