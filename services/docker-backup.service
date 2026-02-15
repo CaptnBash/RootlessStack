@@ -1,0 +1,10 @@
+[Unit]
+Description=Docker Backup
+After=docker.service
+Requires=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/machinectl shell dockie@ /usr/local/bin/full-docker-backup.sh
+StandardOutput=journal
+StandardError=journal

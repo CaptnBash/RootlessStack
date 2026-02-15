@@ -1,0 +1,9 @@
+[Unit]
+Description=System Healthcheck
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/daily-healthcheck.sh
+StandardOutput=journal
+StandardError=journal
+
