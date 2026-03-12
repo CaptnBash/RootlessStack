@@ -59,8 +59,7 @@ if docker compose config --services | grep -x db > /dev/null; then
         read -r CONFIRMATION
     done
 
-    docker compose up db -d
-    sleep 10 # wait for db to be ready
+    docker compose up db -d --wait
 fi 
 
 echo "Building backup_client..."
