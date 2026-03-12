@@ -1,7 +1,7 @@
 # issue
 cp setup/issue /etc/issue
 
-cp root-variables.sh /root/variables.sh
+install -m 600 root-variables.sh /root/variables.sh
 
 echo "umask 0077" >> /etc/profile
 echo "umask 0077" >> /etc/skel/.bashrc

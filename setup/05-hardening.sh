@@ -17,7 +17,7 @@ ufw allow 8443/tcp
 
 ufw --force enable
 
-cp setup/sshd_settings.conf /etc/ssh/sshd_config.d/99-server-setup.conf
+install -m 600 setup/sshd_settings.conf /etc/ssh/sshd_config.d/99-server-setup.conf
 if ! systemctl restart ssh; then
     echo "Warning: SSH restart failed" >&2
 fi

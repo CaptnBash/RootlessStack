@@ -20,3 +20,5 @@ openssl rand -hex 16 > $HOMEDIR/nextcloud/secrets/nextcloud_admin_user.txt
 openssl rand -hex 32 > $HOMEDIR/nextcloud/secrets/mysql_password.txt
 openssl rand -hex 32 > $HOMEDIR/nextcloud/secrets/nextcloud_admin_password.txt
 openssl rand -hex 32 > $HOMEDIR/nextcloud/secrets/mysql_root_password.txt
+
+chown -R dockie:dockie $HOMEDIR/nextcloud/

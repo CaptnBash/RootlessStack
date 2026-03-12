@@ -13,3 +13,5 @@ cp -r apps/nginx/html $HOMEDIR/nginx/
 echo "Setting permissions for nginx html files..."
 chmod 644 $HOMEDIR/nginx/html/*
 chmod 755 $HOMEDIR/nginx/html
+
+chown -R dockie:dockie $HOMEDIR/nginx/html
