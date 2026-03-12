@@ -13,6 +13,7 @@ services:
     networks:
       - nextcloud_caddy
       - nginx_caddy
+      - joomla_caddy
 
   backup:
     container_name: caddy_backup
@@ -23,13 +24,13 @@ services:
       - ~/.ssh:/root/.ssh:ro 
       - .:/backup/app # app folder
     environment:
-      - BORG_PASSCOMMAND=cat /run/secrets/BORG_PASSPHRASE
-      - BORG_REPO=${BORG_REPO}
-      - BORG_ACTION=${BORG_ACTION:-BACKUP}
-      - ARCHIVE_NAME=${ARCHIVE_NAME:-caddy-weekly}
+      BORG_PASSCOMMAND: cat /run/secrets/BORG_PASSPHRASE
+      BORG_REPO: ${BORG_REPO}
+      BORG_ACTION: ${BORG_ACTION:-BACKUP}
+      ARCHIVE_NAME: ${ARCHIVE_NAME:-caddy-weekly}
 
     extra_hosts:
-      - "backupserver:${BACKUP_SERVER_IP:-}"
+      backupserver: "${BACKUP_SERVER_IP:-}"
     networks:
       - backup      
     secrets:
@@ -43,6 +44,8 @@ networks:
   nextcloud_caddy:
     external: true
   nginx_caddy:
+    external: true
+  joomla_caddy:
     external: true
   backup:
 
