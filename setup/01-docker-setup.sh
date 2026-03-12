@@ -26,7 +26,7 @@ echo "Setting up rootless docker for dockie user..."
 loginctl enable-linger dockie
 machinectl shell -q dockie@ /usr/bin/dockerd-rootless-setuptool.sh install
 echo "Configuring environment for dockie user..."
-cp variables.sh $HOMEDIR/
+install -m 700 -o dockie -g dockie variables.sh $HOMEDIR/
 
 ### GAMEZ ###
 echo "Creating gamez user..."
@@ -43,20 +43,18 @@ chown gamez:gamez -R /home/gamez/minecraft/
 # install apps
 for APP in $APPS; do
   # copy necessary files
-  mkdir -p $HOMEDIR/$APP/
-  cp apps/$APP/docker-compose.yml $HOMEDIR/$APP/
+  install -m 700 -o dockie -g dockie -d $HOMEDIR/$APP/
+  install -m 600 -o dockie -g dockie apps/$APP/docker-compose.yml $HOMEDIR/$APP/
 
   # copying variables to environment
   echo "BORG_REPO=$BORG_REPO/$APP" > $HOMEDIR/$APP/.env
   echo "BACKUP_SERVER_SSH_PORT=$BACKUP_SERVER_SSH_PORT" >> $HOMEDIR/$APP/.env
   echo "PASSPHRASE_FILE=$BORG_PASSPHRASE_FOLDER/$APP.txt" >> $HOMEDIR/$APP/.env
+  chown dockie:dockie $HOMEDIR/$APP/.env
 
   # run app specific install script
   source apps/${APP}/install.sh
 done
-
-echo "Setting ownership of home directory to dockie user..."
-chown -R dockie:dockie $HOMEDIR
 
 for APP in $APPS; do
   echo "Starting $APP container..."
