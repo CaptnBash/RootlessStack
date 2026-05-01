@@ -2,7 +2,7 @@
 install -m 700 -o dockie -g dockie -d /srv/nextcloud-data
 
 # setting .env variables
-echo "NEXTCLOUD_TRUSTED_DOMAINS=$NEXTCLOUD_DOMAIN" >> $HOMEDIR/nextcloud/.env
+echo "NEXTCLOUD_DOMAIN=$NEXTCLOUD_DOMAIN" >> $HOMEDIR/nextcloud/.env
 
 echo "setting up Caddyfile for nextcloud..."
 echo "nextcloud domain: $NEXTCLOUD_DOMAIN"

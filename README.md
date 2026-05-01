@@ -32,6 +32,17 @@ If you want to use an existing Borg repository on a backup server (one that's al
 
 **WARNING:** If the Borg repository already exists on the backup server and you don't provide the correct passphrase, you will not be able to create or restore backups.
 
+## WireGuard VPN
+If your backup NAS is on a different network, you can optionally set up a WireGuard VPN tunnel between the server and the NAS **before** running the main installation.
+
+```bash
+bash wireguard/setup-wireguard.sh <server-public-ip>
+```
+
+The script guides you through the full setup. During the process, keep an SSH connection to the NAS open — the script will display the commands and configuration to enter there step by step.
+
+Once the tunnel is established, the NAS will be reachable at `10.0.0.2`, which is already the default value for `BACKUP_SERVER_IP` in [variables.sh](variables.sh) and should be left unchanged.
+
 # Setup
 ## Storage
 ### Main SSD
@@ -226,6 +237,7 @@ Create the repo folder:
 ```
 mkdir /media/PortableSSD/backup
 ```
+**Note:** The folder needs to be called `backup`. The backup script has this value hard coded.
 
 Set up the borg repo:
 ```

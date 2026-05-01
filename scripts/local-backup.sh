@@ -1,11 +1,10 @@
 #!/bin/bash
-set -u # fail on unset variables 
+set -u # fail on unset variables
 source ~/variables.sh
 
 MOUNT_FOLDER="/media/PortableSSD"
 
 export BORG_REPO=$MOUNT_FOLDER/backup
-
 
 if [ "$USER" != "root" ] #check if user is root
 then
@@ -22,38 +21,14 @@ elif [ "$(ls -A $MOUNT_FOLDER )" ]; then
     exit 1
 fi
 
-
 mount -U $BACKUP_DRIVE_UUID $MOUNT_FOLDER
 
 echo "Enter Borg passphrase for USB backup:"
 read -s BORG_PASSPHRASE
 export BORG_PASSPHRASE
 
-borg create                         \
-    --verbose                       \
-    --filter AME                    \
-    --list                          \
-    --stats                         \
-    --compression lz4               \
-    --exclude-caches                \
-    --exclude 'home/*/.cache/*'     \
-    --exclude 'var/tmp/*'           \
-    --exclude 'root/.cache/borg'    \
-    --exclude 'root/.config/borg'   \
-                                    \
-    ::monthly-'{now:%Y-%m-%d}'      \
-    /etc                            \
-    /home                           \
-    /srv                            \
-    /root                           \
-    /var                            \
-    /usr/local  
-
-borg prune                          \
-    --list                          \
-    --keep-monthly  12
-
-borg compact
+# nohup runs a command immune to hangups, with output to a non-tty
+nohup bash /usr/local/sbin/local-backup-run.sh >> /var/log/local-backup.log 2>&1 &
 
 unset BORG_PASSPHRASE
-umount $MOUNT_FOLDER
+echo "Backup started in background (PID $!), logs: /var/log/local-backup.log"
