@@ -4,10 +4,6 @@ useradd -m -u 1003 -s /bin/bash sshuser
 SSHUSER_PASSWORD=$(openssl rand -base64 32)
 ROOT_PASSWORD=$(openssl rand -base64 32)
 
-echo "Storing user credentials..."
-echo "sshuser:${SSHUSER_PASSWORD}" > sshuser_credentials.txt # will be deleted by cleanup script
-echo "root:${ROOT_PASSWORD}" > root_credentials.txt # will be deleted by cleanup script
-
 echo "Setting passwords for users..."
 echo "sshuser:${SSHUSER_PASSWORD}" | chpasswd
 echo "root:${ROOT_PASSWORD}" | chpasswd

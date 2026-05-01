@@ -26,17 +26,17 @@ printf "$CONFIGURATION\n" >>  $SSH_FOLDER/config
 
 # setting up ssh keys and known hosts
 ssh-keygen -t ed25519 -f $SSH_KEYFILE -C "dockie-backup-key" -P ""
+cat $SSH_KEYFILE.pub
+echo ""
+echo "Store this public key on the NAS Borg app and start it!"
+read -p "Press [Enter] to continue..."
+
 if ! ssh-keyscan -p "$BACKUP_SERVER_SSH_PORT" backupserver >> "$SSH_FOLDER/known_hosts"; then
     echo "ERROR: Could not retrieve SSH host key for backupserver."
     echo "Please make sure the backup server is set up correctly and is reachable."
     exit 1
 fi
 clear
-cat $SSH_KEYFILE.pub
-
-echo ""
-echo "Store this public key on the backup server for authorization!"
-read -p "Press [Enter] to continue..."
 
 # set ownerships
 chown -R dockie:dockie $BORG_CONFIG_FOLDER $BACKUP_FOLDER $SSH_FOLDER

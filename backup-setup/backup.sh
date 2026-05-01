@@ -32,6 +32,11 @@ fi
 
 echo "Building backup_client..."
 docker compose build -q backup
-docker compose run --rm backup
+docker compose run --rm backup; BACKUP_EXIT=$?
 
 docker compose up -d
+
+if [ $BACKUP_EXIT -ne 0 ]; then
+    echo "Error: Backup container for $APP exited with code $BACKUP_EXIT"
+    exit $BACKUP_EXIT
+fi
