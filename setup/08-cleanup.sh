@@ -15,8 +15,8 @@ clear
 # print out all secrets for record keeping
 echo "================================================================"
 echo "User Credentials:"
-cat sshuser_credentials.txt
-cat root_credentials.txt
+echo "sshuser:${SSHUSER_PASSWORD}"
+echo "root:${ROOT_PASSWORD}"
 if [ -d "$HOMEDIR/nextcloud/secrets" ]; then
 echo -e "\n\nNextcloud Secrets:"
 for FILE in "$HOMEDIR/nextcloud/secrets"/*; do

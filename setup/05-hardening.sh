@@ -9,11 +9,12 @@ ufw default allow outgoing
 echo "Disabling IPv6 in UFW..."
 sed -i 's/^IPV6=.*/IPV6=no/' /etc/default/ufw
 
-ufw allow ssh
-ufw allow 80/tcp
-ufw allow 443/tcp
-ufw allow 8080/tcp
-ufw allow 8443/tcp
+ufw allow ssh comment 'SSH'
+ufw allow 80/tcp comment 'HTTP'
+ufw allow 443/tcp comment 'HTTPS'
+ufw allow 8080/tcp comment 'HTTP caddy'
+ufw allow 8443/tcp comment 'HTTPS caddy'
+ufw allow 51820/udp comment 'WireGuard VPN'
 
 ufw --force enable
 

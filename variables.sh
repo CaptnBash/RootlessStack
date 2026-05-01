@@ -6,7 +6,7 @@ BORG_KEYS_FOLDER="$BORG_CONFIG_FOLDER/keys"
 
 # update this section based on your environment
 APPS="caddy nextcloud nginx"
-BACKUP_SERVER_IP="<server ip>"
+BACKUP_SERVER_IP="10.0.0.2"
 BACKUP_SERVER_SSH_PORT=8022
 BORG_REPO="borg@backupserver:/home/borg/backups"
 
